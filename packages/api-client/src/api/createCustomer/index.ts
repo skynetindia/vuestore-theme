@@ -1,36 +1,27 @@
-
-import { gql } from '@apollo/client/core';
-import { CreateRegisterInput } from '../../types';
+import {customerRegisterPropTypes} from '../../PropTypes/CustomerPropTypes';
 
 type Variables = {
-    input?: CreateRegisterInput;
+    input?: customerRegisterPropTypes;
   };
 
 export async function createCustomer(context, params) {
   const inputFilters = {
-    firstName: params?.first_name,
-    lastName: params?.last_name,
-    email: params?.email,
-    password: params?.password,
-    passwordConfirmation: params?.password_confirmation
+    "attributes": {
+      "customer.code": params.code,
+      "customer.firstname": params.first_name,
+      "customer.lastname": params.last_name,
+      "customer.telephone": params.phone,
+      "customer.email": params.email,
+      "customer.password": params.password
+    }
   };
 
   const variables: Variables = {
     input: inputFilters
   };
-
+  const url = new URL("jsonapi/customer",context.config.api.url);
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation customerRegister ($input: CreateRegisterInput!) {
-            customerRegister(input: $input) {
-                status
-                success
-            }
-        }`,
-        variables: variables
-      });
+    return await context.client.post(url,variables);
   } catch (error) {
     console.log('Error customerRegister:');
     console.log(error);

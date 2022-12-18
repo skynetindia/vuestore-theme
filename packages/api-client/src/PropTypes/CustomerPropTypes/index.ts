@@ -60,3 +60,19 @@ export interface CustomerAddressAttributePropTypes {
 export interface CustomerAddressPropTypes {
     'attributes': CustomerAddressAttributePropTypes
 }
+export interface customerRegisterPropTypes{
+    "attributes": {
+        "customer.code": string,
+        "customer.firstname": string,
+        "customer.lastname": string,
+        "customer.telephone": string,
+        "customer.email": string,
+        "customer.password": string
+    }
+}
+export interface LoginInput{
+    "islogin": boolean,
+    "email": string,
+    "password": string,
+    "_token"?: string
+}
