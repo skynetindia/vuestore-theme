@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/1626923/137092657-fb398d20-b592-4661-a1f9-4135db0b61d5.png" alt="Vue Storefront" height="80px" />
 </div><p align="center">
-<a href="http://www.skynettechnologies.com"><img src="https://www.skynettechnologies.com/sites/default/files/web-development%20company-in-usa.svg" alt="Skynet Technologies" height="80px"></a>
+<a href="http://www.skynettechnologies.com"><img src="https://www.skynettechnologies.com/sites/default/files/web-development%20company-in-usa.svg" alt="Skynet Technologies" height="180px"></a>
 </p>
 
 ## Vue Storefront 2 integration with aimeos

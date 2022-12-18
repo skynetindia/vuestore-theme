@@ -1,7 +1,11 @@
 export interface BasketProductPropTypes {
-    type: 'basket/product',
+    type: any,
     id: number,
-    attributes: {
+    productId?:any,
+    quantity?:any,
+    selectedConfigurableOption?:any,
+    superAttribute?:any,
+    attributes?: {
         'order.base.product.id': string,
         'order.base.product.price': string,
         'order.base.product.costs': string,

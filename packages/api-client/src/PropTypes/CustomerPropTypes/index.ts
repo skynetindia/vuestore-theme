@@ -54,6 +54,7 @@ export interface CustomerAddressAttributePropTypes {
     'customer.address.longitude': number,
     'customer.address.latitude': number
     'customer.address.id': string,
+    "defaultAddress"?:any
 }
 
 export interface CustomerAddressPropTypes {

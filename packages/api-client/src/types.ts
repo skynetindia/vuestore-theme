@@ -18,7 +18,10 @@ export type BillingAddress = BasketAddressPropTypes;
 
 export type Cart = BasketPropTypes;
 
-export type CartItem = BasketProductPropTypes;
+export type CartItem = {
+  productid: any,
+  quantity: any,
+};
 
 export type Category = CategoryPropTypes;
 
