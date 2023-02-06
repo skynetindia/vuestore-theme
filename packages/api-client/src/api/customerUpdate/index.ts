@@ -1,63 +1,43 @@
-
-import { gql } from '@apollo/client/core';
-import { UpdateAccountInput } from '../../types';
+import {CustomerAttributePropTypes} from "../../PropTypes/CustomerPropTypes";
 
 type Variables = {
-    input?: UpdateAccountInput;
+    input?: CustomerAttributePropTypes;
   };
 
 export async function customerUpdate(context, params) {
   const inputFilters = {
-    firstName: params?.firstName,
-    lastName: params?.lastName,
-    email: params?.email,
-    gender: params?.gender,
-    phone: params?.phone,
-    dateOfBirth: params?.dateOfBirth
+    'customer.id': null,
+    'customer.salutation': params?.firstName,
+    'customer.profile_pic': params?.profile_pic,
+    'customer.company': params?.company,
+    'customer.vatid': params?.vatid,
+    'customer.title': params?.title,
+    'customer.firstname': params?.firstName,
+    'customer.lastname': params?.lastname,
+    'customer.address1': params?.address1,
+    'customer.address2': params?.address2,
+    'customer.address3': params?.address3,
+    'customer.postal': params?.postal,
+    'customer.city': params?.city,
+    'customer.state': params?.state,
+    'customer.languageid': params?.languageid,
+    'customer.countryid': params?.countryid,
+    'customer.telephone': params?.telephone,
+    'customer.email': params?.email,
+    'customer.telefax': params?.telefax,
+    'customer.website': params?.website,
+    'customer.label': params?.firstName,
+    'customer.code': params?.code,
+    'customer.birthday': params?.dateOfBirth,
+    'customer.status': params?.status
   };
 
   const variables: Variables = {
     input: inputFilters
   };
-
-  if (params.oldpassword) {
-    variables.input.oldpassword = params.oldpassword;
-    variables.input.password = params.password;
-    variables.input.passwordConfirmation = params.confirmPassword;
-  }
-
+  const url=new URL("/jsonapi/customer",context.config.api.url);
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation updateAccount ($input: UpdateAccountInput!) {
-            updateAccount(input: $input) {
-                status
-                message
-                customer {
-                    id
-                    firstName
-                    lastName
-                    name
-                    gender
-                    dateOfBirth
-                    email
-                    phone
-                    password
-                    apiToken
-                    customerGroupId
-                    subscribedToNewsLetter
-                    isVerified
-                    token
-                    notes
-                    status
-                    createdAt
-                    updatedAt
-                }
-            }
-        }`,
-        variables: variables
-      });
+    return context.client.post(url,variables);
   } catch (error) {
     console.log('Error customerUpdate:');
     console.log(error);

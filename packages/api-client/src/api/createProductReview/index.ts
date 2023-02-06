@@ -1,106 +1,30 @@
-
-import { gql } from '@apollo/client/core';
-import { CreateReviewInput } from '../../types';
+import { ReviewAttributePropTypes} from '../../PropTypes/ReviewPropTypes';
 
 type Variables = {
-    input?: CreateReviewInput;
+    input?: ReviewAttributePropTypes;
   };
 
 export async function createProductReview(context, params) {
     const inputFilters = {
-        name: params?.name,
-        title: params?.title,
-        comment: params?.comment,
-        rating: params?.rating,
-        productId: params?.productId
+        'review.id': params?.id,
+        'review.refid': params?.productId,
+        'review.domain': `product`,
+        'review.response': ``,
+        'review.comment': params?.comment,
+        'review.rating': params?.comment,
+        'review.status': 1,
+        'review.name': params?.name,
+        'review.ctime': params?.name,
     };
 
     const variables: Variables = {
         input: inputFilters
     };
 
+    const url = new URL("jsonapi/customer?related=review",context.config.api.url);
     try {
-        return await context.client
-        .mutate({
-            mutation: gql`
-            mutation createReview ($input: CreateReviewInput!) {
-                createReview(input: $input) {
-                    success
-                    review {
-                        id
-                        title
-                        rating
-                        comment
-                        status
-                        createdAt
-                        updatedAt
-                        productId
-                        customerId
-                        customerName
-                        product {
-                            id
-                            type
-                            attributeFamilyId
-                            sku
-                            parentId
-                            createdAt
-                            updatedAt
-                            productFlats {
-                                id
-                                sku
-                                name
-                                description
-                                shortDescription
-                                urlKey
-                                new
-                                featured
-                                status
-                                visibleIndividually
-                                thumbnail
-                                price
-                                cost
-                                specialPrice
-                                specialPriceFrom
-                                specialPriceTo
-                                weight
-                                color
-                                colorLabel
-                                size
-                                sizeLabel
-                                locale
-                                channel
-                                productId
-                                parentId
-                                minPrice
-                                maxPrice
-                                metaTitle
-                                metaKeywords
-                                metaDescription
-                                width
-                                height
-                                depth
-                                createdAt
-                                updatedAt
-                            }
-                            cacheBaseImage {
-                                smallImageUrl
-                                mediumImageUrl
-                                largeImageUrl
-                                originalImageUrl
-                            }
-                            cacheGalleryImages {
-                                smallImageUrl
-                                mediumImageUrl
-                                largeImageUrl
-                                originalImageUrl
-                            }
-                        }
-                    }
-                }
-            }`,
-            variables: variables
-        });
-    } catch (error) {
+        return await context.client.post(url,variables);
+    }  catch (error) {
         console.log('Error getProductList:');
         console.log(error);
         throw error.graphQLErrors?.[0].message || error.networkError?.result || error;

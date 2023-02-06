@@ -1,9 +1,8 @@
 
-import { gql } from '@apollo/client/core';
-import { ForgotPasswordInput } from '../../types';
-
 type Variables = {
-    input?: ForgotPasswordInput;
+    input?: {
+      email:string
+    };
   };
 
 export async function customerResetPassword(context, params) {
@@ -14,19 +13,9 @@ export async function customerResetPassword(context, params) {
   const variables: Variables = {
     input: inputFilters
   };
-
+  const url=new URL("/api/forget-password",context.config.api.url);
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation forgotPassword ($input: ForgotPasswordInput!) {
-            forgotPassword(input: $input) {
-                status
-                success
-            }
-        }`,
-        variables: variables
-      });
+    return context.client.post(url,variables);
   } catch (error) {
     console.log('Error customerResetPassword:');
     console.log(error);

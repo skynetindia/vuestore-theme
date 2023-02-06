@@ -1,38 +1,7 @@
-
-import { gql } from "@apollo/client/core";
-
 export async function getAddresses(context, params) {
-
+  const url = new URL('/jsonapi/customer?related=address&_token=', context.config.api.url);
   try {
-    return await context.client
-      .query({
-        query: gql`
-        query addresses {
-            addresses {
-                status
-                message
-                addresses {
-                    id
-                    customerId
-                    companyName
-                    firstName
-                    lastName
-                    address1
-                    address2
-                    country
-                    state
-                    city
-                    postcode
-                    phone
-                    vatId
-                    addressType
-                    defaultAddress
-                    createdAt
-                    updatedAt
-                }
-            }
-        }`
-      });
+    await context.client.get(url.href)
   } catch (error) {
     console.log('Error getAddresses:');
     console.log(error);

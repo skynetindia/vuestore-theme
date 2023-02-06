@@ -40,12 +40,8 @@ export interface ReviewAttributePropTypes {
     'review.rating': number,
     'review.status': number,
     'review.name': string,
-    'review.type': string,
-    'review.image': string,
-    'review.like': string,
-    'review.dislike': string,
     'review.ctime': string,
-    'review.customer':CustomerAttributePropTypes,
+    'review.customer'?:CustomerAttributePropTypes,
 }
 
 export interface ReviewPropTypes {

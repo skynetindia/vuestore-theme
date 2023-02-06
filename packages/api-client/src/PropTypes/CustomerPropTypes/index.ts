@@ -19,14 +19,12 @@ export interface CustomerAttributePropTypes {
     'customer.email': string,
     'customer.telefax': string,
     'customer.website': string,
-    'customer.longitude': number,
-    'customer.latitude': number,
+    'customer.longitude'?: number,
+    'customer.latitude'?: number,
     'customer.label': string,
     'customer.code': string,
     'customer.birthday': string,
     'customer.status': number,
-    'customer.groups': [],
-    'sitedetail':any
 }
 export interface CustomerPropTypes {
     attributes: CustomerAttributePropTypes,

@@ -1,19 +1,9 @@
 
-import { gql } from '@apollo/client/core';
 
 export async function customerLogout(context, params) {
-
+  const url=new URL("/logout",context.config.api.url);
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation customerLogout {
-            customerLogout {
-                status
-                success
-            }
-        }`
-      });
+    return await context.client.post(url);
   } catch (error) {
     console.log('Error customerLogout:');
     console.log(error);

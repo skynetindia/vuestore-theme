@@ -22,7 +22,6 @@ esbuild.build({
   sourcemap: true,
   platform: 'node',
   target: 'node16',
-  watch: Boolean(argv.watch),
   logLevel: 'warning',
   external: [
     ...Object.keys(pkg.dependencies || {}),
