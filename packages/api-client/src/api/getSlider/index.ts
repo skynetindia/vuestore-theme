@@ -1,26 +1,8 @@
 
-import { gql } from "@apollo/client/core";
-
 export async function getSlider(context, params) {
-    
+    const url = new URL('/jsonapi/cms', context.config.api.url);
     try {
-        return await context.client
-        .query({
-            query: gql`
-            query sliders {
-                sliders {
-                    id
-                    title
-                    path
-                    imageUrl
-                    content
-                    channelId
-                    locale
-                    sliderPath
-                    imgPath
-                }
-            }`
-        });
+        return context.client.get(url.href)
 
     } catch (error) {
         console.log("error");

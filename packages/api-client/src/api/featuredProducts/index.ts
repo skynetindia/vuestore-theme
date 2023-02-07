@@ -6,8 +6,6 @@ export async function getFeaturedProduct(context) {
 
   // Use axios to send a GET request
   const { data } = await context.client.get(url.href);
-  console.info(data);
-
   // Return data from the API
   return data.data;
 }

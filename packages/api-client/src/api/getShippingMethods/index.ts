@@ -1,38 +1,7 @@
-
-import { gql } from "@apollo/client/core";
-
 export async function getShippingMethods(context, params) {
-
+  const url= new URL('/jsonapi/service?filter[cs_type]=delivery&include=text,price,media');
   try {
-    return await context.client
-      .query({
-        query: gql`
-        query shippingMethods {
-            shippingMethods {
-                success
-                cartTotal
-                cartCount
-                shippingMethods {
-                    title
-                    methods {
-                        code
-                        label
-                        price
-                        formattedPrice
-                        basePrice
-                        formattedBasePrice
-                    }
-                }
-                paymentMethods {
-                    method
-                    method_title
-                    description
-                    sort
-                }
-                jumpToSection
-            }
-        }`
-      });
+    return context.client.get(url.href)
   } catch (error) {
     console.log('Error getShippingMethods:');
     console.log(error);
