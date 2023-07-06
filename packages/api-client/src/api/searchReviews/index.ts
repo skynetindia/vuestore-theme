@@ -1,12 +1,9 @@
-
-import { gql } from '@apollo/client/core';
-
-import { CustomerReviewInput } from '../../types';
+import { ReviewSearchPropTypes } from '../../PropTypes/ReviewPropTypes';
 
 type Variables = {
   first: 10,
   page: 1,
-  input?: CustomerReviewInput,
+  input?: ReviewSearchPropTypes,
 };
 export async function searchReviews(context, params) {
 
@@ -15,59 +12,13 @@ export async function searchReviews(context, params) {
     page: params?.page || 1,
     input: params?.input
   };
+  const searchParams = new URLSearchParams();
+  variables.input['f_refid'] && searchParams.append("filter[f_refid]", variables.input['f_refid']);
+  variables.input['f_domain'] && searchParams.append("filter[f_domain]", variables.input['f_domain']);
+  const url = new URL(`/jsonapi/review${searchParams.toString() && `?${searchParams.toString()}`}`, context.config.api.url);
 
   try {
-    return await context.client
-      .query({
-        query: gql`
-        query reviewsList ($input: CustomerReviewInput, $first: Int = 10, $page: Int = 1) {
-          reviewsList (input: $input, first: $first, page: $page) {
-                paginatorInfo {
-                  count
-                  currentPage
-                  lastPage
-                  total
-                }
-                data {
-                  id
-                  title
-                  rating
-                  comment
-                  status
-                  productId
-                  customerId
-                  customerName
-                  product {
-                    id
-                    type
-                    attributeFamilyId
-                    sku
-                    parentId
-                    createdAt
-                    updatedAt
-                    productFlats {
-                        id
-                        sku
-                        name
-                        description
-                        shortDescription
-                        urlKey
-                        locale
-                    }
-                    cacheBaseImage {
-                        smallImageUrl
-                        mediumImageUrl
-                        largeImageUrl
-                        originalImageUrl
-                    }
-                  }
-                  createdAt
-                  updatedAt
-                }
-            }
-        }`,
-        variables: variables
-      });
+    return await context.client.get(url);
   } catch (error) {
     console.log('Error searchReviews:');
     console.log(error);

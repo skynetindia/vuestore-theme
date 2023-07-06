@@ -1,25 +1,35 @@
 
-import { gql } from '@apollo/client/core';
-import { UpdateAddressInput } from '../../types';
+import { CustomerAddressAttributePropTypes } from '../../PropTypes/CustomerPropTypes';
 
 type Variables = {
     id: null,
-    input: UpdateAddressInput;
+    input: CustomerAddressAttributePropTypes;
   };
 
 export async function updateAddress(context, params) {
   const inputFilters = {
-    companyName: params?.value?.companyName,
-    firstName: params?.value?.firstName,
-    lastName: params?.value?.lastName,
-    address1: params?.value?.address1,
-    address2: params?.value?.address2,
-    country: params?.value?.country,
-    state: params?.value?.state,
-    city: params?.value?.city,
-    postcode: params?.value?.postcode,
-    phone: params?.value?.phone,
-    vatId: params?.value?.vatId
+    'customer.address.salutation': params?.value?.salutation,
+    'customer.address.company': params?.value?.companyName,
+    'customer.address.vatid': params?.value?.vatId,
+    'customer.address.title': params?.value?.title,
+    'customer.address.firstname': params?.value?.firstname,
+    'customer.address.lastname': params?.value?.lastname,
+    'customer.address.address1': params?.value?.address1,
+    'customer.address.address2': params?.value?.address2,
+    'customer.address.address3': params?.value?.address3,
+    'customer.address.postal': params?.value?.postal,
+    'customer.address.city': params?.value?.city,
+    'customer.address.state': params?.value?.state,
+    'customer.address.countryid': params?.value?.countryid,
+    'customer.address.languageid': params?.value?.languageid,
+    'customer.address.telephone': params?.value?.telephone,
+    'customer.address.telefax': params?.value?.telefax,
+    'customer.address.email': params?.value?.email,
+    'customer.address.website': params?.value?.website,
+    'customer.address.longitude': params?.value?.longitude,
+    'customer.address.latitude': params?.value?.latitude,
+    'customer.address.id': params?.value?.id,
+    "defaultAddress":params?.value?.defaultAddress
   };
 
   const variables: Variables = {
@@ -27,41 +37,9 @@ export async function updateAddress(context, params) {
     input: inputFilters
   };
 
-  if (params?.value?.defaultAddress) {
-    variables.input.defaultAddress = params?.value?.defaultAddress;
-  }
-
+  const url = new URL(`/jsonapi/customer?_token=${params.csrf}`, context.config.api.url);
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation updateAddress ($id: ID!, $input: UpdateAddressInput!) {
-            updateAddress(id: $id, input: $input) {
-                status
-                message
-                addresses {
-                  id
-                  customerId
-                  companyName
-                  firstName
-                  lastName
-                  address1
-                  address2
-                  country
-                  state
-                  city
-                  postcode
-                  phone
-                  vatId
-                  addressType
-                  defaultAddress
-                  createdAt
-                  updatedAt
-                }
-            }
-        }`,
-        variables: variables
-      });
+  return await context.client.post(url,variables)
   } catch (error) {
     console.log('Error updateAddress:');
     console.log(error);

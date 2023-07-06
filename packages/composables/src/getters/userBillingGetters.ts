@@ -14,8 +14,33 @@ function getAddresses(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getDefault(billing: Address): Address {
-  return {};
+function getDefault(billing: Address): AddressItem {
+  return  {
+    "attributes":{
+      "customer.address.salutation": billing.attributes["customer.salutation"],
+      'customer.address.company': billing.attributes["customer.company"],
+      'customer.address.vatid': billing.attributes["customer.vatid"],
+      'customer.address.title': billing.attributes["customer.title"],
+    'customer.address.firstname': billing.attributes["customer.firstname"],
+    'customer.address.lastname': billing.attributes["customer.lastname"],
+    'customer.address.address1': billing.attributes["customer.address1"],
+    'customer.address.address2': billing.attributes["customer.address2"],
+    'customer.address.address3': billing.attributes["customer.address3"],
+    'customer.address.postal': billing.attributes["customer.postal"],
+    'customer.address.city': billing.attributes["customer.city"],
+    'customer.address.state': billing.attributes["customer.state"],
+    'customer.address.countryid': billing.attributes["customer.countryid"],
+    'customer.address.languageid': billing.attributes["customer.languageid"],
+    'customer.address.telephone': billing.attributes["customer.telephone"],
+    'customer.address.telefax': billing.attributes["customer.telefax"],
+    'customer.address.email': billing.attributes["customer.email"],
+    'customer.address.website': billing.attributes["customer.website"],
+    'customer.address.longitude': billing.attributes["customer.longitude"],
+    'customer.address.latitude': billing.attributes["customer.latitude"],
+    'customer.address.id': "0",
+    }
+
+  };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

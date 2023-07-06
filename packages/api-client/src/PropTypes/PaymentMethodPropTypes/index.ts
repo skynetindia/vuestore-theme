@@ -66,3 +66,4 @@ export interface PaymentMethodPropTypes {
     data: PaymentMethodDataPropTypes[],
     included: PaymentMethodImagePropTypes[]
 }
+

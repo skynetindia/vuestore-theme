@@ -1,5 +1,5 @@
 export async function getCustomer(context, customerToken) {
-  const url = new URL('/jsonapi/customer', context.config.api.url);
+  const url = new URL(`/jsonapi/customer?_token=${customerToken}`, context.config.api.url);
   try {
     return context.client.get(url.href);
   } catch (error) {

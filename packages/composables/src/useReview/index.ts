@@ -8,18 +8,47 @@ import type {
   UseReviewSearchParams as SearchParams,
   UseReviewAddParams as AddParams,
 } from '../types';
+import {ReviewAttributePropTypes} from "@vue-storefront/myshop-api/lib/PropTypes/ReviewPropTypes";
 
 const params: UseReviewFactoryParams<Review, SearchParams, AddParams> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   searchReviews: async (context: Context, params) => {
     console.log('Mocked: useReview.searchReviews');
-    return {};
+    return {
+      id: "",
+      type: "",
+      attributes: {
+        'review.id': "",
+        'review.refid': "",
+        'review.domain': "",
+        'review.response': "",
+        'review.comment':"",
+        'review.rating': 0,
+        'review.status': 1,
+        'review.name': "",
+        'review.ctime': "",
+      }
+    };
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addReview: async (context: Context, params) => {
     console.log('Mocked: useReview.addReview');
-    return {};
+    return {
+      id: "",
+      type: "",
+      attributes: {
+        'review.id': "",
+        'review.refid': "",
+        'review.domain': "",
+        'review.response': "",
+        'review.comment':"",
+        'review.rating': 0,
+        'review.status': 1,
+        'review.name': "",
+        'review.ctime': "",
+      }
+    };
   },
 };
 

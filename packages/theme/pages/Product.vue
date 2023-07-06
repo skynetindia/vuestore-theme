@@ -202,7 +202,6 @@ import AddProductReview from '~/components/AddProductReview.vue';
 import { useProduct, productGetters, useCart, useReview, reviewGetters } from '@vue-storefront/myshop';
 import { onSSR } from '@vue-storefront/core';
 import LazyHydrate from 'vue-lazy-hydration';
-import cacheControl from './../helpers/cacheControl';
 import { useUiNotification} from '~/composables';
 
 extend('required', {
@@ -213,10 +212,6 @@ extend('required', {
 export default {
   name: 'Product',
   transition: 'fade',
-  middleware: cacheControl({
-    'max-age': 60,
-    'stale-when-revalidate': 5
-  }),
   setup() {
     const route = useRoute();
     const qty = ref(1);

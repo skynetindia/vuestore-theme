@@ -1,238 +1,36 @@
-
-import { gql } from '@apollo/client/core';
-
-export async function makeOrder(context) {
+import {MakeOrderPropTypes} from "../../PropTypes/OrderPropTypes";
+type Variables = {
+  input?: MakeOrderPropTypes;
+};
+export async function makeOrder(context,params) {
+  const inputFilters = {
+    "attributes": {
+      "order.baseid": params.data.attributes['order.base.id'],
+      "order.statusdelivery": "4",
+      "order.statuspayment": "5",
+      "transaction": [{
+        "transaction_type": params.paymentService?.attributes['order.base.service.code'],
+        "transaction_code": "Transaction",
+        "transaction_value": params.paymentTransationValue ? params.paymentTransationValue : '',
+        "transaction_name": params.paymentService?.attributes['order.base.service.name'],
+        "order_service_id": params.paymentService?.attributes['order.base.service.id']
+      },
+        {
+          "transaction_type": "delivery",
+          "transaction_code": params.deliveryService?.attributes['order.base.service.code'],
+          "transaction_value": Math.random().toString(36).substr(2),
+          "transaction_name": params.deliveryService?.attributes['order.base.service.name'],
+          "order_service_id": params.deliveryService?.attributes['order.base.service.id']
+        }
+      ]
+    }
+  }
+  const variables: Variables = {
+    input: inputFilters
+  };
   try {
-    return await context.client
-      .mutate({
-        mutation: gql`
-        mutation placeOrder {
-            placeOrder {
-                success
-                redirectUrl
-                selectedMethod
-                order {
-                    id
-                    incrementId
-                    status
-                    channelName
-                    isGuest
-                    customerEmail
-                    customerFirstName
-                    customerLastName
-                    customerCompanyName
-                    customerVatId
-                    shippingMethod
-                    shippingTitle
-                    shippingDescription
-                    couponCode
-                    isGift
-                    totalItemCount
-                    totalQtyOrdered
-                    baseCurrencyCode
-                    channelCurrencyCode
-                    orderCurrencyCode
-                    grandTotal
-                    baseGrandTotal
-                    grandTotalInvoiced
-                    baseGrandTotalInvoiced
-                    grandTotalRefunded
-                    baseGrandTotalRefunded
-                    subTotal
-                    baseSubTotal
-                    subTotalInvoiced
-                    baseSubTotalInvoiced
-                    subTotalRefunded
-                    baseSubTotalRefunded
-                    discountPercent
-                    discountAmount
-                    baseDiscountAmount
-                    discountInvoiced
-                    baseDiscountInvoiced
-                    discountRefunded
-                    baseDiscountRefunded
-                    taxAmount
-                    baseTaxAmount
-                    taxAmountInvoiced
-                    baseTaxAmountInvoiced
-                    taxAmountRefunded
-                    baseTaxAmountRefunded
-                    shippingAmount
-                    baseShippingAmount
-                    shippingInvoiced
-                    baseShippingInvoiced
-                    shippingRefunded
-                    baseShippingRefunded
-                    customerId
-                    customerType
-                    channelId
-                    channelType
-                    cartId
-                    appliedCartRuleIds
-                    shippingDiscountAmount
-                    baseShippingDiscountAmount
-                    createdAt
-                    updatedAt
-                    billingAddress {
-                        id
-                        customerId
-                        cartId
-                        orderId
-                        firstName
-                        lastName
-                        gender
-                        companyName
-                        address1
-                        address2
-                        postcode
-                        city
-                        state
-                        country
-                        email
-                        phone
-                        vatId
-                        defaultAddress
-                    }
-                    shippingAddress {
-                        id
-                        customerId
-                        cartId
-                        orderId
-                        firstName
-                        lastName
-                        gender
-                        companyName
-                        address1
-                        address2
-                        postcode
-                        city
-                        state
-                        country
-                        email
-                        phone
-                        vatId
-                        defaultAddress
-                    }
-                    items {
-                        id
-                        sku
-                        type
-                        name
-                        couponCode
-                        weight
-                        totalWeight
-                        qtyOrdered
-                        qtyShipped
-                        qtyInvoiced
-                        qtyCanceled
-                        qtyRefunded
-                        price
-                        basePrice
-                        total
-                        baseTotal
-                        totalInvoiced
-                        baseTotalInvoiced
-                        amountRefunded
-                        baseAmountRefunded
-                        discountPercent
-                        discountAmount
-                        baseDiscountAmount
-                        discountInvoiced
-                        baseDiscountInvoiced
-                        discountRefunded
-                        baseDiscountRefunded
-                        taxPercent
-                        taxAmount
-                        baseTaxAmount
-                        taxAmountInvoiced
-                        baseTaxAmountInvoiced
-                        taxAmountRefunded
-                        baseTaxAmountRefunded
-                        productId
-                        productType
-                        orderId
-                        parentId
-                        additional
-                        createdAt
-                        updatedAt
-                        product {
-                            id
-                            type
-                            attributeFamilyId
-                            sku
-                            parentId
-                            createdAt
-                            updatedAt
-                        }
-                        child {
-                            id
-                            sku
-                            type
-                            name
-                            couponCode
-                            weight
-                            totalWeight
-                            qtyOrdered
-                            qtyShipped
-                            qtyInvoiced
-                            qtyCanceled
-                            qtyRefunded
-                            price
-                            basePrice
-                            total
-                            baseTotal
-                            totalInvoiced
-                            baseTotalInvoiced
-                        }
-                    }
-                    shipments {
-                        id
-                        status
-                        totalQty
-                        totalWeight
-                        carrierCode
-                        carrierTitle
-                        trackNumber
-                        emailSent
-                        customerId
-                        customerType
-                        orderId
-                        orderAddressId
-                        createdAt
-                        updatedAt
-                    }
-                    refunds {
-                        id
-                        incrementId
-                        state
-                        emailSent
-                        totalQty
-                        baseCurrencyCode
-                        channelCurrencyCode
-                        orderCurrencyCode
-                        adjustmentRefund
-                        baseAdjustmentRefund
-                        adjustmentFee
-                        baseAdjustmentFee
-                        subTotal
-                        baseSubTotal
-                        grandTotal
-                        baseGrandTotal
-                        shippingAmount
-                        baseShippingAmount
-                        taxAmount
-                        baseTaxAmount
-                        discountPercent
-                        discountAmount
-                        baseDiscountAmount
-                        orderId
-                        createdAt
-                        updatedAt
-                    }
-                }
-            }
-        }`
-      });
+    const url = `jsonapi/order?_token=${params.csrf}`;
+    return await context.client.post(url,variables);
   } catch (error) {
     console.log('Error makeOrder:');
     console.log(error);

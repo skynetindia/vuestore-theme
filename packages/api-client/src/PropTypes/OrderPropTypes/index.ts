@@ -89,20 +89,35 @@ interface OrderAttributePropTypes {
     'order.base.costs': string,
     'order.base.rebate': string,
     'order.base.taxvalue': string,
-    'order.base.taxflag': false,
+    'order.base.taxflag': boolean,
     'order.base.customerref': string,
     'order.base.comment': string,
     'order.ctime': Date,
     'rewards_earned': string,
     'reward_cost': string,
     'user_group': string | null,
-    product: OrderBaseProductPropTypes[],
-    address: OrderBaseAddressAttributesTypes[],
-    coupon: string[],
-    service: OrderBaseServicePropTypes[],
+    product?: OrderBaseProductPropTypes[],
+    address?: OrderBaseAddressAttributesTypes[],
+    coupon?: string[],
+    service?: OrderBaseServicePropTypes[],
 }
 
 export interface OrderPropTypes {
     'id': string,
     'attributes': OrderAttributePropTypes,
+}
+export interface MakeOrderPropTypes{
+        "attributes": {
+            "order.baseid": string,
+            "order.statusdelivery": string,
+            "order.statuspayment": string,
+            "transaction": ServiceOrderTypes[]
+        }
+}
+export interface ServiceOrderTypes{
+    "transaction_type": string,
+    "transaction_code": string,
+    "transaction_value": string,
+    "transaction_name": string,
+    "order_service_id": string
 }

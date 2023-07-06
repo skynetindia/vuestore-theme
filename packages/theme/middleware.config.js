@@ -4,7 +4,7 @@ module.exports = {
       location: '@vue-storefront/myshop-api/server',
       configuration: {
         api: {
-          url: 'https://geartrader.skynettechnologies.us'
+          url: process.env.DOMAIN
         }
       },
     },

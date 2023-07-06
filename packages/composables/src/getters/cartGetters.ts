@@ -10,7 +10,7 @@ import type { Cart, CartItem } from '@vue-storefront/myshop-api';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getItems(cart: Cart): CartItem[] {
-  return [{}];
+  return [{productid:"",quantity:""}];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

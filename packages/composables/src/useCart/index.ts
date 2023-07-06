@@ -9,7 +9,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   load: async (context: Context, { customQuery }) => {
     console.log('Mocked: useCart.load');
-    return {};
+    return context.data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,7 +18,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
     { currentCart, product, quantity, customQuery }
   ) => {
     console.log('Mocked: useCart.addItem');
-    return {};
+    return context.data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +27,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
     { currentCart, product, customQuery }
   ) => {
     console.log('Mocked: useCart.removeItem');
-    return {};
+    return context.data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,13 +36,13 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
     { currentCart, product, quantity, customQuery }
   ) => {
     console.log('Mocked: useCart.updateItemQty');
-    return {};
+    return context.data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   clear: async (context: Context, { currentCart }) => {
     console.log('Mocked: useCart.clear');
-    return {};
+    return context.data;
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,8 +52,8 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   ) => {
     console.log('Mocked: useCart.applyCoupon');
     return {
-      updatedCart: {},
-      updatedCoupon: {},
+      updatedCart: context.data,
+      updatedCoupon: couponCode,
     };
   },
 
@@ -64,7 +64,7 @@ const params: UseCartFactoryParams<Cart, CartItem, Product> = {
   ) => {
     console.log('Mocked: useCart.removeCoupon');
     return {
-      updatedCart: {},
+      updatedCart: context.data,
     };
   },
 

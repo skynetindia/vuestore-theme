@@ -13,22 +13,13 @@ const params: UseCategoryFactoryParams<Category, SearchParams> = {
 
     return [
       {
+        attributes: {
+          'catalog.code': "",
+          'catalog.hasChildren': false,
+          'catalog.label': "",
+          'catalog.url': ""
+        },
         id: 1,
-        name: 'Women',
-        slug: 'women',
-        items: [],
-      },
-      {
-        id: 2,
-        name: 'Men',
-        slug: 'men',
-        items: [],
-      },
-      {
-        id: 3,
-        name: 'Kids',
-        slug: 'kids',
-        items: [],
       },
     ];
   },

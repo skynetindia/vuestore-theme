@@ -43,6 +43,10 @@ export interface ReviewAttributePropTypes {
     'review.ctime': string,
     'review.customer'?:CustomerAttributePropTypes,
 }
+export interface ReviewSearchPropTypes{
+    "f_refid":string,
+    "f_domain":string
+}
 
 export interface ReviewPropTypes {
     id: string,

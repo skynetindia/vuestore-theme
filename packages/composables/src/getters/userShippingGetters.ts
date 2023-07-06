@@ -15,7 +15,7 @@ function getAddresses(
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function getDefault(shipping: Address): Address {
-  return {};
+  return shipping;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
